@@ -1,0 +1,96 @@
+<nav class="d-flex justify-content-between navbar">
+  <a class="navbar-brand" href="#">
+    CRM
+  </a>
+  <form class="form-inline" ngForm (ngSubmit)="find(searchResult)" #searchResult="ngForm">
+    <label>
+      <input class="form-control mr-sm-2" ngModel="" name="searchName" type="text" placeholder="Name">
+    </label>
+    <label>
+      <input class="form-control mr-sm-2" ngModel="" name="searchCnp" type="text" placeholder="CNP">
+    </label>
+    <label>
+      <input class="form-control mr-sm-2" ngModel="" name="searchNumber" type="text" placeholder="Policy Number">
+    </label>
+    <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Search</button>
+  </form>
+  <button class="btn btn-outline-danger btn-light" (click)="loginService.logout()">Logout</button>
+</nav>
+
+<div class="container-fluid" id="client-page">
+  <div class="row">
+    <div class="col-2" id="sideMenu">
+
+    </div>
+    <div class="col-10">
+      <div class="row justify-content-around">
+        <div class="col-3">
+          <app-create-client></app-create-client>
+        </div>
+        <div class="col-3">
+          <button class="btn btn-md btn-outline-primary" (click)="getReminders()"> Reminder
+                        <span *ngIf="todayReminderList.length != 0">
+                      <span class="notification-badge notification-badge--show">
+                        <span aria-hidden="true" class="badge badge-pill badge-danger">{{todayReminderList.length}}</span>
+                      </span>
+                    </span>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="example-container mat-elevation-z8">
+          <table class="clientsTable" mat-table [dataSource]="list">
+
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Name</th>
+              <td mat-cell *matCellDef="let client"> {{client.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cnp">
+              <th mat-header-cell *matHeaderCellDef> CNP</th>
+              <td mat-cell *matCellDef="let client"> {{client.cnp}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="phoneNumber">
+              <th mat-header-cell *matHeaderCellDef> Phone Number</th>
+              <td mat-cell *matCellDef="let client"> {{client.phoneNumber}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="emailAddress">
+              <th mat-header-cell *matHeaderCellDef> Email Address</th>
+              <td mat-cell *matCellDef="let client"> {{client.emailAddress}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="gdpr">
+              <th mat-header-cell *matHeaderCellDef> GDPR</th>
+              <td mat-cell *matCellDef="let client"> {{client.gdprStatus}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="lead">
+              <th mat-header-cell *matHeaderCellDef> Lead </th>
+              <td mat-cell *matCellDef="let client"> {{client.leadStatus}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="function">
+              <th mat-header-cell *matHeaderCellDef> Function</th>
+              <td mat-cell *matCellDef="let client">
+
+                <button type="button" class="btn btn-primary" (click)="editItem(client)">Edit</button>
+                <button type="button" class="btn btn-warning" (click)="createReminder(client.id)">Reminder</button>
+                <button type="button" class="btn btn-success" routerLink="/policy/client/{{client.id}}">Policy</button>
+                <button type="button" class="btn btn-info" (click)="openLog(client.id)">Log</button>
+
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

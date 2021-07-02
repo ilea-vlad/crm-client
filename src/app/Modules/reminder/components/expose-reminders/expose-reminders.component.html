@@ -1,0 +1,39 @@
+<div class="container border border-primary mt-4 mb-4">
+  <div class="row">
+    <div *ngFor="let reminder of list" class="col-4 mt-2 mb-2">
+      <div class="card" style="width: 14rem;">
+        <div class="card-body">
+          <h5 class="card-title align-items-center">{{reminder.date}}</h5>
+          <p class="card-text">
+            <span>{{reminder.client.name}}</span><br/>
+            <span>{{reminder.client.phoneNumber}}</span><br/>
+            <span>{{reminder.message}}</span><br/>
+          </p>
+          <button type="button" class="btn btn-outline-primary mr-1" (click)="setReminderStatus(reminder)">Make it done</button>
+          <button type="button" class="btn btn-outline-primary ml-1" (click)="onClick(reminder)"
+                  [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">Edit</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div id="collapseExample" [ngbCollapse]="isCollapsed">
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="editForm" (ngSubmit)="onSubmit()" *ngIf="this.editForm">
+        <div class="row">
+          <div class="col">
+            <input formControlName="date" type="date" class="form-control" placeholder="Date">
+          </div>
+          <div class="col">
+            <input formControlName="message" type="text" class="form-control" placeholder="message">
+          </div>
+          <div class="col">
+            <button class="btn btn-outline-primary" type="submit">Edit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<form [formGroup]="receivedObservation" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="date">Date</label>
+    <div class="input-group">
+      <input formControlName="date" id="date" class="form-control" type="date" placeholder="Date" name="date">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="message">Message</label>
+    <div class="input-group">
+      <textarea formControlName="message" id="message" class="form-control" type="text" placeholder="Message"
+                name="message">
+      </textarea>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-outline-dark mr-2">Save</button>
+  <button type="button" class="btn btn-outline-dark ml-1" (click)="onClick()"
+          [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">Add reminder
+  </button>
+  <div class="form-group mt-2">
+    <div [(ngbCollapse)]="!isCollapsed">
+      <div class="card">
+        <label for="reminderDate">Reminder Date</label>
+        <div class="card-body">
+          <input formControlName="reminderDate" id="reminderDate" type="date" class="form-control" placeholder="Date"
+                 name="reminderDate">
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

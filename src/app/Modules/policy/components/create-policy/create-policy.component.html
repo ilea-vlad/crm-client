@@ -1,0 +1,78 @@
+<ng-template #content let-modal>
+  <form ngForm (ngSubmit)="onSubmit(policy)" #policy="ngForm"
+        [class.is-valid]="typeController.valid  && numberController.valid && periodController.valid && startDateController.valid && endDateController.valid && feeController.valid">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Create Policy</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <mat-form-field class="form-group" appearance="fill">
+        <mat-label> Type</mat-label>
+        <label for="type"></label>
+        <select ngModel="" matNativeControl name="type" id="type"
+                [class.is-invalid]="typeController.invalid && typeController.untouched" required="required"
+                #typeController="ngModel">
+          <option value="PF"> PF</option>
+          <option value="PJ"> PJ</option>
+        </select>
+      </mat-form-field>
+      <mat-form-field class="form-group ml-5" appearance="fill" id="auto-complete">
+        <mat-label>Subtype</mat-label>
+        <label for="subtype"></label>
+        <input matInput type="text" id="subtype" name="subtype"
+               [formControl]="myControl"
+               [matAutocomplete]="auto"
+               required = "required">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <div class="form-group">
+        <label for="number">Number</label>
+        <div class="input-group">
+          <input ngModel="" id="number" class="form-control"
+                 [class.is-invalid]="numberController.invalid && numberController.touched" placeholder="Policy Number"
+                 name="number" required="required" pattern="[0-9]*" type="text" #numberController="ngModel">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="period">Period</label>
+        <div class="input-group">
+          <input ngModel="" id="period" class="form-control"
+                 [class.is-invalid]="periodController.invalid && periodController.touched" required="required"
+                 pattern="[0-9]{2}" placeholder="Period" name="period" type="number" #periodController="ngModel">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="startDare">Start Date</label>
+        <div class="input-group">
+          <input ngModel="" id="startDare" class="form-control" required="required"
+                 [class.is-invalid]="startDateController.invalid && startDateController.touched" type="date"
+                 name="startDate" #startDateController="ngModel">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="endDate">End Date</label>
+        <div class="input-group">
+          <input ngModel="" id="endDate" class="form-control" type="date" required="required"
+                 [class.is-invalid]="endDateController.invalid && endDateController.touched" name="endDate"
+                 #endDateController="ngModel">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fee">Fee</label>
+        <div class="input-group">
+          <input ngModel="" id="fee" class="form-control" type="number" required="required" pattern="[0-9]*"
+                 [class.is-invalid]="feeController.invalid && feeController.touched" name="fee"
+                 #feeController="ngModel">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-outline-dark">Save</button>
+    </div>
+  </form>
+</ng-template>
+<button class="btn btn-md btn-outline-primary" (click)="open(content)">Add Policy</button>
