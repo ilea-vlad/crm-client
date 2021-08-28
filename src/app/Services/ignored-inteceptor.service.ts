@@ -16,7 +16,7 @@ export class IgnoredInteceptorService {
   }
 
   public getEuroPrice(): Observable<CurrencyType> {
-    return this.httpClient.get<CurrencyType>('https://api.exchangeratesapi.io/latest?symbols=RON');
+    return this.httpClient.get<CurrencyType>('https://api.exchangerate.host/latest?symbols=RON');
   }
 
   getManagers(): Observable<ManagerType[]> {
